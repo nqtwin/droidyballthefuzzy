@@ -19,9 +19,7 @@ handlers:
   static_dir: static/stylesheets
 - url: /todo/.*
   script: src.main.app
-  login: admin
 - url: /todo
   script: src.main.app
-  login: admin
 - url: /.*
   script: src.main.app

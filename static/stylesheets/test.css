@@ -19,6 +19,7 @@ body {
 	padding:15px;
 	#border:1px dashed #333;
 	#background-color:#eee;
+	position: relative;
 }
 
 .rounded-corners {
@@ -138,8 +139,10 @@ hr {
 }
 
 .entry-description {
+	width: 100%;
 	font-family: "Verdana";
 	font-size: 14px;
+	overflow: auto;
 }
 
 .entry-footer {
