@@ -18,7 +18,7 @@ body {
 
 #letter-content {
 	margin: 10%;
-	margin-top: 20%;
+	margin-top: 15%;
 	font-family: "Courier New";
 	font-size: 2em;
 	text-align: center;
@@ -26,7 +26,7 @@ body {
 
 #Signature {
 	font-family: "Courier New";
-	margin-top: -5%;
+	/* margin-top: -5%; */
 	float: right;
 	margin-right: 10%;
 	margin-left: auto;
@@ -50,5 +50,12 @@ img {
 a {
 	text-decoration: none;
 	color: #41B2F0;
+}
+
+#error {
+	float: left;
+	margin-left: 15%;
+	font-size: 2em;
+	font-family: "Courier New";
 }
 

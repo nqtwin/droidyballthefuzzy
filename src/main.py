@@ -22,7 +22,7 @@ class QuizPage(CustomHandler):
 			sign_in_url = users.create_login_url("/")
 			self.render('index.html', error=error, url=sign_in_url)
 		elif user and check_authorization.is_not_authorized(user.email()):
-			error = "You are not authorized to enter the site"
+			error = "P.S. You must be Nicole or Arthur to access the site."
 			sign_out_url = users.create_logout_url("/")
 			self.render('index.html', error=error, url=sign_out_url)
 		
