@@ -17,8 +17,9 @@ handlers:
   mime_type: image/jpeg
 - url: /stylesheets
   static_dir: static/stylesheets
-- url: /.*
-  script: src.main.app
 - url: /todo/.*
   script: src.main.app
+  login: admin
+- url: /todo
+  script: scr.main.app
   login: admin
