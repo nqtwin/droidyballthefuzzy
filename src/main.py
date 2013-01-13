@@ -12,9 +12,14 @@ class MainPage(CustomHandler):
   		#self.response.headers['Content-Type'] = 'text/html'
   		user = users.get_current_user()
   		check_authorization = Authorization()
-  		if check_authorization.is_not_authorized(user.email()):
+  		if not user or check_authorization.is_not_authorized(user.email()):
   			error = "P.S. You must be Nicole or Arthur to access the site."
-			self.render('index.html', error = error)
+  			if user:
+  				sign_out_url = users.create_logout_url("/")
+				self.render('index.html', error = error, url = sign_out_url)
+			else:
+				sign_in_url = users.create_login_url("/")
+				self.render('index.html', error = error, url = sign_in_url)
 		else:
 			self.render('index.html', url="/todo")
 

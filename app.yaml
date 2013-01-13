@@ -21,4 +21,4 @@ handlers:
   script: src.main.app
 - url: /todo/.*
   script: src.main.app
-  login: required
+  login: admin
