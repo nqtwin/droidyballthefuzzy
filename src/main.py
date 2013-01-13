@@ -67,12 +67,13 @@ class SubmitEntryPage(CustomHandler):
 		# Should receive title and entry (description) as headers in POST
   		title = self.request.get("title")
 		description = self.request.get("description")
+		location = self.request.get("location")
 		
 		# If they are valid, create a unique ID for the post, save it to the database,
 		# and load the entry alone on a formatted page
-		if title and description:
+		if title and description and location:
 			id = str(uuid.uuid1())
-			new_entry = Entry(title=title, description=description, id=id)
+			new_entry = Entry(title=title, description=description, location=location, id=id)
 			new_entry.put()
 			
 			self.redirect("/todo/" + id)
