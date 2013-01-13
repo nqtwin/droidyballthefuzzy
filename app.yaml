@@ -21,7 +21,7 @@ handlers:
   script: src.main.app
   login: admin
 - url: /todo
-  script: scr.main.app
+  script: src.main.app
   login: admin
 - url: /.*
-  script: scr.main.app
+  script: src.main.app
