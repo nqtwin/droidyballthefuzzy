@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/test.css" media="screen" />
+  </head>
+
+  <body>
+    <form name="input" action="/todo/new" method="post">
+      <label> Title? <br>
+        <input type="text" name="title" class="input"/>
+      </label>
+      <br>
+      <label> Description? <br>
+        <textarea name="description" rows="3" class="input"></textarea>
+      </label>
+      <div style="color: red">{{error}}</div>
+      <input type="submit" value="Post entry!" class="button-fancy"/>
+    </form>
+  </body>
+</html>

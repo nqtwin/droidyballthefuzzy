@@ -1,0 +1,54 @@
+body {
+	background-image:url('images/paperBig.jpg');
+	text-align: center;
+	margin: 5% 5%;
+}
+
+@font-face {
+	font-family: "windsong";
+	src: url("windsong.ttf");
+}
+
+#heading {
+	margin: auto;
+	font-family: cursive;
+	float: left;
+	font-size: 4em;
+}
+
+#letter-content {
+	margin: 10%;
+	margin-top: 20%;
+	font-family: "Courier New";
+	font-size: 2em;
+	text-align: center;
+}
+
+#Signature {
+	font-family: "Courier New";
+	margin-top: -5%;
+	float: right;
+	margin-right: 10%;
+	margin-left: auto;
+	font-size: 2em;
+	font-weight: bold;
+}
+
+img {
+	max-width = 100%;
+	width: 3em;
+}
+
+#footer {
+	margin-bottom: -10%;
+	text-align: center;
+	float: center;
+	display: block;
+	clear: both;
+}
+
+a {
+	text-decoration: none;
+	color: #41B2F0;
+}
+

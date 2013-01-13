@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/test.css" media="screen" />
+    <title> Quiz Page! </title>
+ </head>
+<body>
+<div> <a href={{link}}> {{greeting}} </a> </div>
+<h1> What is DroidyBall? </h1>
+<form name="input" action="/quiz" method="post">
+<label style="font-size: 20px; font-family: Verdana">
+<input type="radio" name="answer" value="Nicole">
+An adorable plushie pet
+</label><br>
+<label style="font-size: 20px; font-family: Verdana">
+<input type="radio" name="answer" value="Arthur">
+A comfortable foot rest</label>
+<br>
+<div style="color: red">{{error}}</div>
+<input type="submit" value="Check your answer!" class="button rounded-corners">
+<form>
+</body>
+</html>
+

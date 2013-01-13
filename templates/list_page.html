@@ -1,0 +1,20 @@
+<html>
+ <head>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/test.css" media="screen" />
+</head> 
+
+<body>
+<h1> Our List of Things to do Together :) </h1>
+
+<div class="content">
+{% for entry in entries %}
+  <div class="entry">
+    <div class="entry-title">{{entry.title}}</div>
+    <hr>
+  <pre class="entry-description">{{entry.description}}</pre>
+  </div>
+{% endfor %}
+
+</div>
+</body> 
+</html>
