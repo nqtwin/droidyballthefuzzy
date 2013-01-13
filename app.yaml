@@ -23,3 +23,5 @@ handlers:
 - url: /todo
   script: scr.main.app
   login: admin
+- url: /.*
+  script: scr.main.app
