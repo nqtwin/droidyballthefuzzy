@@ -14,7 +14,7 @@ body {
 
 .content {
 	width:60%;
-	margin:0px auto;
+	margin:7% auto;
 	text-align:left;
 	padding:15px;
 	#border:1px dashed #333;
@@ -102,25 +102,51 @@ input[type=submit] {
 }
 
 hr {
-	margin:1px auto;
+	margin:auto auto;
 	color: #000;
 	background-color: #000;
 	height: 1px;
 }
 
 .entry + .entry {
-	margin-top: 50px;
+	margin-top: 12%;
+}
+
+.entry-header {
+	margin: auto auto;
+	position: relative;
 }
 
 .entry-title {
+	text-align: left;
 	font-family: "Georgia";
 	font-size: 30px;
 	font-weight: bold;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+
+.entry-location {
+	text-align: right;
+	font-family: "Georgia";
+	font-size: 18px;
+	font-weight: bold;
+	position: absolute;
+	bottom: 0;
+	right: 0;
 }
 
 .entry-description {
 	font-family: "Verdana";
 	font-size: 14px;
+}
+
+.entry-footer {
+	margin: auto auto;
+	font-family: "verdana";
+	font-size: 10px;
+	text-align: right;
 }
 
 .reg-text {
