@@ -10,7 +10,13 @@ from google.appengine.api import users	# Google Account Authorization for an Eas
 class MainPage(CustomHandler):
 	def get(self):
   		#self.response.headers['Content-Type'] = 'text/html'
-		self.render('index.html')
+  		user = users.get_current_user()
+  		check_authorization = Authorization()
+  		if check_authorization.is_not_authorized(user.email()):
+  			error = "P.S. You must be Nicole or Arthur to access the site."
+			self.render('index.html', error = error)
+		else:
+			self.render('index.html', url="/todo")
 
 # To-Be Authorization page Handler
 class QuizPage(CustomHandler):
