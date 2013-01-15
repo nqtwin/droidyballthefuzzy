@@ -4,13 +4,13 @@
 </head> 
 
 <body>
-<h1> Our List of Things to do Together :) </h1>
+<h1> <a href="/todo"> Our List of Things to do Together :) </a> </h1>
 
 <div class="content">
 {% for entry in entries %}
   <div class="entry">
   	<div class="entry-header">
-    <div class="entry-title">{{entry.title}}</div>
+    <div class="entry-title"><a href="/todo/{{entry.id}}">{{entry.title}}</a></div>
     <div class="entry-location">in {{entry.location}}</div>
     </div>
     <hr>
