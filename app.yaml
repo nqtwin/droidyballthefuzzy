@@ -14,9 +14,12 @@ handlers:
   upload: static/favicon.ico
 - url: /images
   static_dir: static/images
-  mime_type: image/jpeg
 - url: /stylesheets
   static_dir: static/stylesheets
+- url: /scripts 
+  static_dir: scripts/
+- url: /lib
+  static_dir: lib/
 - url: /todo/.*
   script: src.main.app
 - url: /todo

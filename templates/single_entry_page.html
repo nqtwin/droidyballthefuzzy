@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/test.css" media="screen" />
+  <script type="text/javascript" src="/lib/jquery-1.9.0.min.js"></script>
+  <script type="text/javascript" src="/scripts/single_entry.js"></script>
+</head> 
+
+<body>
+
+<h1> <a href="/todo"> Our List of Things to do Together :) </a> </h1>
+
+<div class="content">
+  <div class="entry">
+  	<div class="entry-header">
+    <a id="blah" class="entry-title" href="/todo/{{entry.id}}">{{entry.title}}
+    <div id="checkbox">
+    <img src="/images/black_tick.png" height="5%" width="5%">
+    </div>
+    </a>
+    <div class="entry-location">in {{entry.location}}</div>
+    </div>
+    <hr>
+  <pre class="entry-description">{{entry.description}}</pre>
+  <div class="entry-footer">
+  Posted by {{entry.author}} on {{entry.created_on.strftime("%d %b %Y")}}
+  </div>
+  </div>
+</div>
+
+<script>
+mouseBlah(".entry-title","red");
+$("#checkbox").mouseover(function() {$(this).css("visibility","hidden");});  
+$("#checkbox").mouseleave(function() {$(this).css("visibility","visible");});
+</script>
+
+</body> 
+</html>
