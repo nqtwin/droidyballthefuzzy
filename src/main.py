@@ -31,11 +31,11 @@ class QuizPage(CustomHandler):
 		if not (user):
 			error = "You must sign in!"
 			sign_in_url = users.create_login_url("/")
-			self.render('index.html', error=error, url=sign_in_url)
+			self.render('sorry.html', user = 'Someone', error=error, url=sign_in_url)
 		elif user and check_authorization.is_not_authorized(user.email()):
-			error = "P.S. You must be Nicole or Arthur to access the site."
+			error = "Please ask Nicole or Arthur for access =D"
 			sign_out_url = users.create_logout_url("/")
-			self.render('index.html', error=error, url=sign_out_url)
+			self.render('sorry.html', user = user.nickname, error=error, url=sign_out_url)
 		
 		else:	
 			if user:
@@ -71,27 +71,49 @@ class SubmitEntryPage(CustomHandler):
 
 	# Without POST information, load regular page
 	def get(self):
-		self.render('new_entry.html',error='')
+		user = users.get_current_user()
+		check_authorization = Authorization()
+		if not (user):
+			error = "You must sign in!"
+			sign_in_url = users.create_login_url("/")
+			self.render('sorry.html', user = 'Someone', error=error, url=sign_in_url)
+		elif user and check_authorization.is_not_authorized(user.email()):
+			error = "Please ask Nicole or Arthur for access =D"
+			sign_out_url = users.create_logout_url("/")
+			self.render('sorry.html', user = user.nickname, error=error, url=sign_out_url)
+		else:
+			self.render('new_entry.html',error='')
 
 	def post(self):
 		
-		# Should receive title and entry (description) as headers in POST
-  		title = self.request.get("title")
-		description = self.request.get("description")
-		location = self.request.get("location")
-		
-		# If they are valid, create a unique ID for the post, save it to the database,
-		# and load the entry alone on a formatted page
-		if title and description and location:
-			id = str(uuid.uuid1())
-			new_entry = Entry(title=title, description=description, location=location, id=id)
-			new_entry.put()
-			
-			self.redirect("/todo/" + id)
-		
-		# Otherwise, return to page and report an error to the user
+		user = users.get_current_user()
+		check_authorization = Authorization()
+		if not (user):
+			error = "You must sign in!"
+			sign_in_url = users.create_login_url("/")
+			self.render('sorry.html', user = 'Someone', error=error, url=sign_in_url)
+		elif user and check_authorization.is_not_authorized(user.email()):
+			error = "Please ask Nicole or Arthur for access =D"
+			sign_out_url = users.create_logout_url("/")
+			self.render('sorry.html', user = user.nickname, error=error, url=sign_out_url)
 		else:
-			self.render('new_entry.html',error='Please fill in all fields!!')
+			# Should receive title and entry (description) as headers in POST
+  			title = self.request.get("title")
+			description = self.request.get("description")
+			location = self.request.get("location")
+		
+			# If they are valid, create a unique ID for the post, save it to the database,
+			# and load the entry alone on a formatted page
+			if title and description and location:
+				id = str(uuid.uuid1())
+				new_entry = Entry(title=title, description=description, location=location, id=id)
+				new_entry.put()
+			
+				self.redirect("/todo/" + id)
+		
+			# Otherwise, return to page and report an error to the user
+			else:
+				self.render('new_entry.html',error='Please fill in all fields!!')
 
 # Full list of entries handler
 class ListPage(CustomHandler):
@@ -108,6 +130,12 @@ class ViewEntryPage(CustomHandler):
 		# Find the entry with the specific id and render it on a page alone.
 		entry = db.GqlQuery("SELECT * FROM Entry WHERE id = '%s' " % id)
 		self.render('list_page.html', entries = entry)
+		
+class NotAllowedInPage(CustomHandler):
+	def get(self, id):
+		user = users.get_current_user()
+		self.render('sorry.html', user = user.nickname)
+	
 
 class Authorization():
 	def is_not_authorized(self, email):
