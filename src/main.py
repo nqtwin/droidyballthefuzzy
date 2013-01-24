@@ -4,8 +4,9 @@ import webapp2 							# Required for use with google app engine
 from handler import CustomHandler 		# For cleaner page rendering
 import uuid								# For easy unique ID generation
 from google.appengine.api import users	# Google Account Authorization for an Easy and 
+from webapp2_extras.routes import RedirectRoute			
 										# Secure Authorization System
-#from auth import Authorization			# For cleaner user authorization checking
+from auth import Authorization			# For cleaner user authorization checking
 
 # Main (starting) page handler class
 class MainPage(CustomHandler):
@@ -144,6 +145,8 @@ class Authorization():
 
 # URI mapping for app engine
 app = webapp2.WSGIApplication([('/',MainPage),('/quiz',QuizPage),('/nicole',NicolePage),('/arthur',ArthurPage),
-				('/todo',ListPage),('/todo/new',SubmitEntryPage), (r'/todo/(.*)', ViewEntryPage)],
+				('/todo/new',SubmitEntryPage), 
+				RedirectRoute('/todo',ListPage,'view-all-entries',strict_slash=True),
+				(r'/todo/(a.*)', ViewEntryPage)],
 				debug=True)
  
