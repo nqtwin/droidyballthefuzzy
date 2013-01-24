@@ -7,6 +7,7 @@ from google.appengine.api import users	# Google Account Authorization for an Eas
 										# Secure Authorization System
 #from auth import Authorization			# For cleaner user authorization checking
 from authorization import Authorization	# Check User Permission(s)
+from webapp2_extras.routes import RedirectRoute
 
 # Main (starting) page handler class
 class MainPage(CustomHandler):
@@ -120,6 +121,7 @@ class NotAllowedInPage(CustomHandler):
 
 # URI mapping for app engine
 app = webapp2.WSGIApplication([('/',MainPage),('/quiz',QuizPage),('/nicole',NicolePage),('/arthur',ArthurPage),
-				('/todo',ListPage),('/todo/new',SubmitEntryPage), (r'/todo/(.*)', ViewEntryPage)],
+				RedirectRoute('/todo',ListPage,'view-all-entries',strict_slash=False),
+				('/todo/new',SubmitEntryPage), (r'/todo/(.*)', ViewEntryPage)],
 				debug=True)
  
