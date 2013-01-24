@@ -11,4 +11,3 @@ class CustomHandler(webapp2.RequestHandler):
 	def render(self,template_name,**kwargs):
 		self.response.write(env.get_template(template_name).render(kwargs))
 
-

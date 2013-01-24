@@ -4,9 +4,9 @@ import webapp2 							# Required for use with google app engine
 from handler import CustomHandler 		# For cleaner page rendering
 import uuid								# For easy unique ID generation
 from google.appengine.api import users	# Google Account Authorization for an Easy and 
-from webapp2_extras.routes import RedirectRoute			
 										# Secure Authorization System
-from auth import Authorization			# For cleaner user authorization checking
+#from auth import Authorization			# For cleaner user authorization checking
+from authorization import Authorization	# Check User Permission(s)
 
 # Main (starting) page handler class
 class MainPage(CustomHandler):
@@ -69,36 +69,16 @@ class ArthurPage(CustomHandler):
     self.render('arthur.html')
 
 # New entry page handler
-class SubmitEntryPage(CustomHandler):
+class SubmitEntryPage(CustomHandler, Authorization):
 
 	# Without POST information, load regular page
 	def get(self):
-		user = users.get_current_user()
-		check_authorization = Authorization()
-		if not (user):
-			error = "You must sign in!"
-			sign_in_url = users.create_login_url("/")
-			self.render('sorry.html', user = 'Someone', error=error, url=sign_in_url)
-		elif user and check_authorization.is_not_authorized(user.email()):
-			error = "Please ask Nicole or Arthur for access =D"
-			sign_out_url = users.create_logout_url("/")
-			self.render('sorry.html', user = user.nickname, error=error, url=sign_out_url)
-		else:
+		if self.user_is_authorized():
 			self.render('new_entry.html',error='')
 
 	def post(self):
+		if self.user_is_authorized():
 		
-		user = users.get_current_user()
-		check_authorization = Authorization()
-		if not (user):
-			error = "You must sign in!"
-			sign_in_url = users.create_login_url("/")
-			self.render('sorry.html', user = 'Someone', error=error, url=sign_in_url)
-		elif user and check_authorization.is_not_authorized(user.email()):
-			error = "Please ask Nicole or Arthur for access =D"
-			sign_out_url = users.create_logout_url("/")
-			self.render('sorry.html', user = user.nickname, error=error, url=sign_out_url)
-		else:
 			# Should receive title and entry (description) as headers in POST
   			title = self.request.get("title")
 			description = self.request.get("description")
@@ -118,35 +98,28 @@ class SubmitEntryPage(CustomHandler):
 				self.render('new_entry.html',error='Please fill in all fields!!')
 
 # Full list of entries handler
-class ListPage(CustomHandler):
+class ListPage(CustomHandler, Authorization):
 	def get(self):	
-		# Find all entries and show them on a page
-		entries = db.GqlQuery("SELECT * FROM Entry ORDER BY created_on DESC")
-		self.render('list_page.html',entries=entries)
+		if self.user_is_authorized():
+			# Find all entries and show them on a page
+			entries = db.GqlQuery("SELECT * FROM Entry ORDER BY created_on DESC")
+			self.render('list_page.html',entries=entries)
 
 # Single entry View handler
-class ViewEntryPage(CustomHandler):
+class ViewEntryPage(CustomHandler, Authorization):
 	def get(self, id):
-		# Find the entry with the specific id and render it on a page alone.
-		entry = db.GqlQuery("SELECT * FROM Entry WHERE id = '%s' " % id)
-		self.render('single_entry_page.html', entry=entry[0])
+		if self.user_is_authorized():
+			# Find the entry with the specific id and render it on a page alone.
+			entry = db.GqlQuery("SELECT * FROM Entry WHERE id = '%s' " % id)
+			self.render('single_entry_page.html', entry=entry[0])
 		
 class NotAllowedInPage(CustomHandler):
 	def get(self, id):
 		user = users.get_current_user()
 		self.render('sorry.html', user = user.nickname)
-	
-class Authorization():
-	def is_not_authorized(self, email):
-		authorized_emails = ('anarkia@gmail.com', 'Arthur.Safira@gmail.com')
-		if email in authorized_emails:
-			return False
-		return True
 
 # URI mapping for app engine
 app = webapp2.WSGIApplication([('/',MainPage),('/quiz',QuizPage),('/nicole',NicolePage),('/arthur',ArthurPage),
-				('/todo/new',SubmitEntryPage), 
-				RedirectRoute('/todo',ListPage,'view-all-entries',strict_slash=True),
-				(r'/todo/(.*)', ViewEntryPage)],
+				('/todo',ListPage),('/todo/new',SubmitEntryPage), (r'/todo/(.*)', ViewEntryPage)],
 				debug=True)
  
