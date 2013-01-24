@@ -147,6 +147,6 @@ class Authorization():
 app = webapp2.WSGIApplication([('/',MainPage),('/quiz',QuizPage),('/nicole',NicolePage),('/arthur',ArthurPage),
 				('/todo/new',SubmitEntryPage), 
 				RedirectRoute('/todo',ListPage,'view-all-entries',strict_slash=True),
-				(r'/todo/(a.*)', ViewEntryPage)],
+				(r'/todo/(.*)', ViewEntryPage)],
 				debug=True)
  
