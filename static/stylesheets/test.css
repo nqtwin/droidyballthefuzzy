@@ -109,6 +109,11 @@ hr {
 	height: 1px;
 }
 
+a {
+	text-decoration: none;
+	color: #000;
+}
+
 .entry + .entry {
 	margin-top: 12%;
 }
@@ -142,7 +147,7 @@ hr {
 	width: 100%;
 	font-family: "Verdana";
 	font-size: 14px;
-	overflow: auto;
+	white-space: pre-wrap;
 }
 
 .entry-footer {

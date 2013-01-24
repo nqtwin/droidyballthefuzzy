@@ -1,4 +1,5 @@
 from google.appengine.ext import db 	# For using google's datastore (database)
+from dbModels import Entry
 import webapp2 							# Required for use with google app engine
 from handler import CustomHandler 		# For cleaner page rendering
 import uuid								# For easy unique ID generation
@@ -117,8 +118,7 @@ class SubmitEntryPage(CustomHandler):
 
 # Full list of entries handler
 class ListPage(CustomHandler):
-	def get(self):
-		
+	def get(self):	
 		# Find all entries and show them on a page
 		entries = db.GqlQuery("SELECT * FROM Entry ORDER BY created_on DESC")
 		self.render('list_page.html',entries=entries)
@@ -126,34 +126,21 @@ class ListPage(CustomHandler):
 # Single entry View handler
 class ViewEntryPage(CustomHandler):
 	def get(self, id):
-	
 		# Find the entry with the specific id and render it on a page alone.
 		entry = db.GqlQuery("SELECT * FROM Entry WHERE id = '%s' " % id)
-		self.render('list_page.html', entries = entry)
+		self.render('single_entry_page.html', entry=entry[0])
 		
 class NotAllowedInPage(CustomHandler):
 	def get(self, id):
 		user = users.get_current_user()
 		self.render('sorry.html', user = user.nickname)
 	
-
 class Authorization():
 	def is_not_authorized(self, email):
 		authorized_emails = ('anarkia@gmail.com', 'Arthur.Safira@gmail.com')
 		if email in authorized_emails:
 			return False
 		return True
-
-# Database class for storing entries
-class Entry(db.Model):
-	title = db.StringProperty(required=True)
-	description = db.StringProperty(required=True,multiline=True)
-	location = db.StringProperty(required=True,default="Boston")
-	author = db.StringProperty(required=True,default="Arthur")
-	created_on = db.DateProperty(auto_now_add=True)
-	accomplished_on = db.DateProperty
-	is_accomplished = db.BooleanProperty(default=False)
-	id = db.StringProperty(required=True)
 
 # URI mapping for app engine
 app = webapp2.WSGIApplication([('/',MainPage),('/quiz',QuizPage),('/nicole',NicolePage),('/arthur',ArthurPage),
