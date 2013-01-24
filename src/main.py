@@ -121,7 +121,7 @@ class NotAllowedInPage(CustomHandler):
 
 # URI mapping for app engine
 app = webapp2.WSGIApplication([('/',MainPage),('/quiz',QuizPage),('/nicole',NicolePage),('/arthur',ArthurPage),
-				RedirectRoute('/todo',ListPage,'view-all-entries',strict_slash=False),
+				RedirectRoute('/todo',ListPage,'view-all-entries',strict_slash=True),
 				('/todo/new',SubmitEntryPage), (r'/todo/(.*)', ViewEntryPage)],
 				debug=True)
  
