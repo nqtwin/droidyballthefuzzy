@@ -121,13 +121,13 @@ a {
 .entry-header {
 	margin: auto auto;
 	position: relative;
+	font-family: "Georgia";
+	font-weight: bold;
 }
 
 .entry-title {
 	text-align: left;
-	font-family: "Georgia";
 	font-size: 30px;
-	font-weight: bold;
 	position: absolute;
 	left: 0;
 	bottom: 0;
@@ -135,9 +135,7 @@ a {
 
 .entry-location {
 	text-align: right;
-	font-family: "Georgia";
 	font-size: 18px;
-	font-weight: bold;
 	position: absolute;
 	bottom: 0;
 	right: 0;
@@ -151,10 +149,28 @@ a {
 }
 
 .entry-footer {
+	margin: 7% auto;
+	position: relative;
+}
+
+.entry-done {
+	text-align: left;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	font-family: "courier new";
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.entry-author {
 	margin: auto auto;
 	font-family: "verdana";
 	font-size: 10px;
 	text-align: right;
+	position: absolute;
+	right: 0;
+	bottom: 0;
 }
 
 .reg-text {

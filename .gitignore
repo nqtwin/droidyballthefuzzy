@@ -1,5 +1,7 @@
-src/__init__.pyc
 src/main.pyc
 src/auth.pyc
 src/dbModels.pyc
 src/handler.pyc
+src/authorization.pyc
+src/submission.pyc
+src/__init__.pyc
