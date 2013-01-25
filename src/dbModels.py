@@ -7,6 +7,5 @@ class Entry(db.Model):
 	location = db.StringProperty(required=True,default="Boston")
 	author = db.StringProperty(required=True,default="Arthur")
 	created_on = db.DateTimeProperty(auto_now_add=True)
-	accomplished_on = db.DateProperty
+	accomplished_on = db.StringProperty
 	is_accomplished = db.BooleanProperty(default=False)
-	id = db.StringProperty(required=True)

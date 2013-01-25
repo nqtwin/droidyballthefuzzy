@@ -21,35 +21,32 @@
   			<pre class="entry-description">{{entry.description}}</pre>
   
   			<div class="entry-footer">
-				<div class="entry-done">
+				<span class="entry-done" id="is-not-done" style="display:inline-block">
   					<span id="todo" style="color:red">
   						TO DO!!
   					</span>
   					<span id="done-question" style="display:none; color:red">
   						DONE??
   					</span>
-  				</div>
+  				</span>
   				<div class="entry-select-date-done" id="select-date-done" style="display:none"> 
 					<span> YES! on 
-						<form action="/blahblah" method="post" style="display:inline">
-							<input type="text">
+						<form action="/todo/{{id}}" method="post" style="display:inline">
+							<input name="date" type="text">
 							<input type="submit" value="Go!" class="button-fancy" 
 							style="margin-top: 0; text-shadow:0 0 0; font-family:courier new; font-size: 18px">
 						</form>
 					</span>
 				</div>
-			</div>
-
-  
-			<div class="entry-done" style="display:none">
+			</div>  
+			<span class="entry-done" style="display:none" id="is-done">
 				<span id="done" style="display:inline-block">
 					DONE!!
 				</span>
 				<span id="date-done" style="display:none; font-stretch:ultra-condensed"> 
-					on {{entry.created_on.strftime("%d %b %Y")}}
+					on {{entry.accomplished_on}}
    				</span>
-  			</div>
-  
+  			</span> 
   			<div class="entry-author">
   				Posted by {{entry.author}} on {{entry.created_on.strftime("%d %b %Y")}}
   			</div>
@@ -58,6 +55,8 @@
 </div>
 
 <script>
+isDone('{{entry.is_accomplished}}');
+
 $("#todo").mouseover(function() {
 	$(this).fadeOut(100, function() {
 		$("#done-question").fadeIn(100);
@@ -76,20 +75,11 @@ $("#select-date-done").mouseleave(function() {
 	});
 		
 $("#done").mouseover(function() {
-	$("#date-done").fadeTo(1000, 1);
+	$("#date-done").fadeTo(300, 1);
 	});
 $("#done").mouseleave(function() {
-	$("#date-done").fadeTo(1000, 0);
+	$("#date-done").fadeTo(100, 0);
 	});
-//$("#done").mouseover(function() {$(this).fadeTo(400, 0, function() 
-// {$("#date-done").fadeIn(100);}); });
-//$("#done").mouseleave(function() {$(this).html("DONE!!");});
-//mouseBlah(".entry-title","red");
-//$("#checkbox").mouseover(function() {$(this).css("visibility","hidden");});  
-//$("#checkbox").mouseleave(function() {$(this).css("visibility","visible");});
- //	  <div id="checkbox">
- //	  <img src="/images/black_tick.png" height="5%" width="5%">
- //	  </div>
 </script>
 
 </body> 

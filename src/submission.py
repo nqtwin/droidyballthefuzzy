@@ -28,7 +28,7 @@ class SubmitEntryPage(CustomHandler, Authorization):
 			# and load the entry alone on a formatted page
 			if title and description and location:
 				id = str(uuid.uuid1())
-				new_entry = Entry(title=title, description=description, location=location, id=id)
+				new_entry = Entry(key_name=id, title=title, description=description, location=location)
 				new_entry.put()
 			
 				self.redirect("/todo/" + id)

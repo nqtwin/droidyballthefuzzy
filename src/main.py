@@ -49,8 +49,17 @@ class ViewEntryPage(CustomHandler, Authorization):
 	def get(self, id):
 		if self.user_is_authorized():
 			# Find the entry with the specific id and render it on a page alone.
-			entry = db.GqlQuery("SELECT * FROM Entry WHERE id = '%s' " % id)
-			self.render('single_entry_page.html', entry=entry[0])
+			entry = Entry.get_by_key_name(id)
+			if entry:
+				self.render('single_entry_page.html', entry=entry, id=id)
+	
+	def post(self, id):
+		date_accomplished = self.request.get("date")
+		entry = Entry.get_by_key_name(id)
+		entry.accomplished_on = date_accomplished
+		entry.is_accomplished = True
+		db.put(entry)
+		self.render('single_entry_page.html', entry=entry, id=id)
 		
 class NotAllowedInPage(CustomHandler):
 	def get(self, id):

@@ -10,7 +10,7 @@
 {% for entry in entries %}
   <div class="entry">
   	<div class="entry-header">
-    <div class="entry-title"><a href="/todo/{{entry.id}}">{{entry.title}}</a></div>
+    <div class="entry-title"><a href="/todo/{{entry.key().name()}}">{{entry.title}}</a></div>
     <div class="entry-location">in {{entry.location}}</div>
     </div>
     <hr>
