@@ -1,42 +1,95 @@
 <!DOCTYPE html>
 <html>
- <head>
-  <link rel="stylesheet" type="text/css" href="/stylesheets/test.css" media="screen" />
-  <script type="text/javascript" src="/lib/jquery-1.9.0.min.js"></script>
-  <script type="text/javascript" src="/scripts/single_entry.js"></script>
-</head> 
+	<head>
+		<link rel="stylesheet" type="text/css" href="/stylesheets/test.css" media="screen" />
+		<script type="text/javascript" src="/lib/jquery-1.9.0.min.js"></script>
+		<script type="text/javascript" src="/scripts/single_entry.js"></script>
+	</head> 
 
 <body>
 
-<h1> <a href="/todo"> Our List of Things to do Together :) </a> </h1>
+	<h1> <a href="/todo"> Our List of Things to do Together :) </a> </h1>
 
-<div class="content">
-  <div class="entry">
-  	<div class="entry-header">
-    <a id="blah" class="entry-title" href="/todo/{{entry.id}}">{{entry.title}}
-    </a>
-    <div class="entry-location">in {{entry.location}}</div>
-    </div>
-    <hr>
-  <pre class="entry-description">{{entry.description}}</pre>
-  <div class="entry-footer">
-  <div class="entry-done"><img src="/images/black_tick.png" height="5%" width="5%">
-  DONE!!
-  </div>
-  <div class="entry-author">
-  Posted by {{entry.author}} on {{entry.created_on.strftime("%d %b %Y")}}
-  </div>
-  </div>
-  </div>
+	<div class="content">
+  		<div class="entry">
+			<div class="entry-header">
+				<a id="blah" class="entry-title" href="/todo/{{entry.id}}">{{entry.title}}
+				</a>
+				<div class="entry-location">in {{entry.location}}</div>
+			</div>
+			<hr>
+  			<pre class="entry-description">{{entry.description}}</pre>
+  
+  			<div class="entry-footer">
+				<div class="entry-done">
+  					<span id="todo" style="color:red">
+  						TO DO!!
+  					</span>
+  					<span id="done-question" style="display:none; color:red">
+  						DONE??
+  					</span>
+  				</div>
+  				<div class="entry-select-date-done" id="select-date-done" style="display:none"> 
+					<span> YES! on 
+						<form action="/blahblah" method="post" style="display:inline">
+							<input type="text">
+							<input type="submit" value="Go!" class="button-fancy" 
+							style="margin-top: 0; text-shadow:0 0 0; font-family:courier new; font-size: 18px">
+						</form>
+					</span>
+				</div>
+			</div>
+
+  
+			<div class="entry-done" style="display:none">
+				<span id="done" style="display:inline-block">
+					DONE!!
+				</span>
+				<span id="date-done" style="display:none; font-stretch:ultra-condensed"> 
+					on {{entry.created_on.strftime("%d %b %Y")}}
+   				</span>
+  			</div>
+  
+  			<div class="entry-author">
+  				Posted by {{entry.author}} on {{entry.created_on.strftime("%d %b %Y")}}
+  			</div>
+  		</div>
+  	</div>
 </div>
 
 <script>
+$("#todo").mouseover(function() {
+	$(this).fadeOut(100, function() {
+		$("#done-question").fadeIn(100);
+		});
+		});
+
+$("#done-question").click(function() {
+	$("#select-date-done").css("display","inline-block");
+	});
+
+$("#select-date-done").mouseleave(function() {
+	$("#todo").fadeIn(400);
+	$(this).css("display","none");
+	$("#done-question").css("display","none");
+
+	});
+		
+$("#done").mouseover(function() {
+	$("#date-done").fadeTo(1000, 1);
+	});
+$("#done").mouseleave(function() {
+	$("#date-done").fadeTo(1000, 0);
+	});
+//$("#done").mouseover(function() {$(this).fadeTo(400, 0, function() 
+// {$("#date-done").fadeIn(100);}); });
+//$("#done").mouseleave(function() {$(this).html("DONE!!");});
 //mouseBlah(".entry-title","red");
 //$("#checkbox").mouseover(function() {$(this).css("visibility","hidden");});  
 //$("#checkbox").mouseleave(function() {$(this).css("visibility","visible");});
- //   <div id="checkbox">
- //   <img src="/images/black_tick.png" height="5%" width="5%">
- //   </div>
+ //	  <div id="checkbox">
+ //	  <img src="/images/black_tick.png" height="5%" width="5%">
+ //	  </div>
 </script>
 
 </body> 
