@@ -26,6 +26,41 @@ class MainPage(CustomHandler):
 		else:
 			self.render('index.html', url="/todo")
 
+"""
+# To-Be Authorization page Handler
+class QuizPage(CustomHandler):
+	def get(self):
+		user = users.get_current_user()
+		check_authorization = Authorization()
+		if not (user):
+			error = "You must sign in!"
+			sign_in_url = users.create_login_url("/")
+			self.render('sorry.html', user = 'Someone', error=error, url=sign_in_url)
+		elif user and check_authorization.is_not_authorized(user.email()):
+			error = "Please ask Nicole or Arthur for access =D"
+			sign_out_url = users.create_logout_url("/")
+			self.render('sorry.html', user = user.nickname, error=error, url=sign_out_url)
+		
+		else:	
+			if user:
+				greeting = ("Welcome, %s! sign out" % user.nickname())
+				link = users.create_logout_url("/")
+			else:
+				greeting = "Sign in or register"
+				link = users.create_login_url("/")
+			self.render('quiz_page.html',greeting=greeting, link=link, error='')
+
+	def post(self):
+		user = users.get_current_user()
+		if self.request.get('answer') == "Nicole":
+			self.redirect("/nicole")
+		elif self.request.get('answer') == "Arthur":
+			self.redirect("/arthur")
+		else:
+			error = 'Please select at least one option, %s!' % user.nickname()
+			self.render('quiz_page.html',greeting='',error=error)
+"""
+
 # Landing page handler for Nicole
 class NicolePage(CustomHandler):
   def get(self):
@@ -35,6 +70,37 @@ class NicolePage(CustomHandler):
 class ArthurPage(CustomHandler):
   def get(self):
     self.render('arthur.html')
+
+"""
+# New entry page handler
+class SubmitEntryPage(CustomHandler, Authorization):
+
+	# Without POST information, load regular page
+	def get(self):
+		if self.user_is_authorized():
+			self.render('new_entry.html',error='')
+
+	def post(self):
+		if self.user_is_authorized():
+		
+			# Should receive title and entry (description) as headers in POST
+  			title = self.request.get("title")
+			description = self.request.get("description")
+			location = self.request.get("location")
+		
+			# If they are valid, create a unique ID for the post, save it to the database,
+			# and load the entry alone on a formatted page
+			if title and description and location:
+				id = str(uuid.uuid1())
+				new_entry = Entry(title=title, description=description, location=location, id=id)
+				new_entry.put()
+			
+				self.redirect("/todo/" + id)
+		
+			# Otherwise, return to page and report an error to the user
+			else:
+				self.render('new_entry.html',error='Please fill in all fields!!')
+"""
 
 # Full list of entries handler
 class ListPage(CustomHandler, Authorization):
