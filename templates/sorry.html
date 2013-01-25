@@ -1,12 +1,22 @@
 <html>
 
 	<head>
+		<link rel="stylesheet" type="text/css" href="/stylesheets/sorry.css" />
 	</head>
 	
 	<body>
-	<p> Sorry, {{user}}! </p>
-	<p> {{error}} </p>
-	<p> <a href = {{url}}> Sign in here! </a> </p> 
+		<div id="Opening">
+			<p> Sorry, {{user}}! </p>
+		</div>
+		<div id="Error">
+			<p> <span id="Bro"> Bro, </span> {{error}} </p>
+		</div>
+		
+		<img id="Image" src = "/images/NoAccess.jpg"> 
+		
+		<div id="SignIn">
+			<p> <a href = {{url}}> Sign in here. </a> </p> 
+		</div>
 	</body>
 
 </html>

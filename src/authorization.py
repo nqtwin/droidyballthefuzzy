@@ -7,13 +7,13 @@ class Authorization():
 		authorized_emails = ('anarkia@gmail.com', 'Arthur.Safira@gmail.com')
 		
 		if not (user):
-			error = "You must sign in!"
+			error = "you must sign in!"
 			sign_in_url = users.create_login_url("/")
 			self.render('sorry.html', user = 'Someone', error=error, url=sign_in_url)
 			return False
 			
 		elif user.email() not in authorized_emails:
-			error = "Please ask Nicole or Arthur for access =D"
+			error = "ask Nicole or Arthur for access."
 			sign_out_url = users.create_logout_url("/")
 			self.render('sorry.html', user = user.nickname, error=error, url=sign_out_url)
 			return False
