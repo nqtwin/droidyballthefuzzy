@@ -19,8 +19,9 @@ body {
 }
 
 #wrapper {
-	min-height: 100%;
+	min-height: 90%;
 	position: relative;
+	margin: 5%;
 }
 
 
@@ -29,7 +30,7 @@ body {
 	/* margin-top: 15%; */
 	/* clear: both; */
     width: 100%;
-	top: 40%;
+	top: 35%;
 	position: absolute;
 	font-family: "Oxygen";
 	font-size: 2em;
@@ -57,7 +58,7 @@ img {
 	width:100%; 
 	height: 2em;
 	position: absolute;
-	bottom: 0px;
+	bottom: 10px;
 	left: 0px;
 	text-align: center;
 	/* margin-bottom: -10%; 
@@ -70,7 +71,17 @@ img {
 a {
 	text-decoration: none;
 	color: #781818;
+  	-o-transition:color .5s ease-out;
+  	-ms-transition:color .5s ease-out;
+  	-moz-transition:color .5s ease-out;
+  	-webkit-transition:color .5s ease-out;
+  	/* ...and now override with proper CSS property */
+  	transition:color .5s ease-out;
 }
+
+a:hover { 
+	color:blue;
+ }
 
 #error {
 	clear: both;
