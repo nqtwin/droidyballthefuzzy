@@ -2,7 +2,7 @@
 
 	var spans = '<span>' + str.split("").join('</span><span>') + '</span>';
 	
-	var strWithLink = "Live your lives with the desire to discover <a href= {{url}}> what's out there.  </a>";
+	var strWithLink = "Live your lives with the desire to discover <a href= /todo> what's out there.  </a>";
 	
 	var DELAY_TIME = 60;
 	

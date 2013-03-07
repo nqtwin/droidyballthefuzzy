@@ -11,12 +11,15 @@ from webapp2_extras.routes import RedirectRoute
 from submission import SubmitEntryPage
 
 # Main (starting) page handler class
-class MainPage(CustomHandler):
+class MainPage(CustomHandler, Authorization):
 	def get(self):
   		#self.response.headers['Content-Type'] = 'text/html'
   		user = users.get_current_user()
-  		if not user or user.email() not in ["Arthur.Safira@gmail.com", "Anarkia@gmail.com"]:
-  			error = "P.S. You must be Nicole or Arthur to access the site."
+  		if self.user_is_authorized():
+  			self.render('index.html', url = "/todo")
+
+  		"""if not user or user.email() not in ["Arthur.Safira@gmail.com", "Anarkia@gmail.com"]:
+  			error = "You must be Nicole or Arthur to access the site."
   			if user:
   				sign_out_url = users.create_logout_url("/")
 				self.render('index.html', error = error, url = sign_out_url)
@@ -24,7 +27,7 @@ class MainPage(CustomHandler):
 				sign_in_url = users.create_login_url("/")
 				self.render('index.html', error = error, url = sign_in_url)
 		else:
-			self.render('index.html', url="/todo")
+			self.render('index.html', url="/todo") """
 
 # Landing page handler for Nicole
 class NicolePage(CustomHandler):

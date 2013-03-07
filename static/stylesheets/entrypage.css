@@ -38,7 +38,7 @@ body {
 	padding-bottom: 80px;
 	margin: auto;
 }
-
+/*
 #Signature {
 	font-family: "Sacramento";
 	margin-top: -5%; 
@@ -48,7 +48,7 @@ body {
 	font-size: 3em;
 	font-weight: bold;
 }	
-
+*/
 img {
 	max-width = 100%;
 	width: 2em;
@@ -71,12 +71,17 @@ img {
 a {
 	text-decoration: none;
 	color: #781818;
-  	-o-transition:color .5s ease-out;
-  	-ms-transition:color .5s ease-out;
-  	-moz-transition:color .5s ease-out;
-  	-webkit-transition:color .5s ease-out;
+  	-o-transition:color .5s;
+  	-ms-transition:color .5s;
+  	-moz-transition:color .5s;
+  	-webkit-transition:color .5s;
   	/* ...and now override with proper CSS property */
   	transition:color .5s ease-out;
+  	/* -webkit-transition: text-shadow 0.2s linear;
+    -moz-transition: text-shadow 0.2s linear;
+    -ms-transition: text-shadow 0.2s linear;
+    -o-transition: text-shadow 0.2s linear;
+    transition: text-shadow 0.2s linear; */
 }
 
 a:hover { 
@@ -89,6 +94,6 @@ a:hover {
 	margin-left: 5%;
 	margin-bottom:5%;
 	font-size: 2em;
-	font-family: "Courier New";
+	font-family: "Oxygen";
 }
 
