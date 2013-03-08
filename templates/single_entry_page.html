@@ -1,118 +1,123 @@
+
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <style type="text/css">
-      html { height: 100% }
-      body { height: 100%; margin: 0; padding: 0 }
-      #map_canvas { height: 100% }
-    </style>
-		<link rel="stylesheet" type="text/css" href="/stylesheets/test.css" media="screen" />
-		<script type="text/javascript" src="/lib/jquery-1.9.0.min.js"></script>
-		<script type="text/javascript" src="/scripts/single_entry.js"></script>
+<head>
+	<title> Maps API </title>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+		html { height: 100% }
+		body { height: 100%; margin: 0; padding: 0 }
+		#map_canvas { height: 100% }
+	</style>
 	<script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbunV-3zdGsFn7N_b2zOwIZLLwzCYQ-j8&sensor=false">
-    </script>
-    <script type="text/javascript">
-    	alert('ahhh!');
-      function initialize() {
-      	alert('hi!');
-      	geocoder = new google.maps.Geocoder();
-      	address = "{{entry.location}}";
-      	alert(address);
-      	geocoder.geocode( { 'address': {{entry.location}}}, function(results, status) {
-      	if (status == google.maps.GeocoderStatus.OK) {
-      		var mapOptions = {
-          	center: new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()),
-          	zoom: 8,
-          	mapTypeId: google.maps.MapTypeId.ROADMAP
-        	};
-        	var map = new google.maps.Map(document.getElementById("map_canvas"),
-            mapOptions);
-      	} else {
-        	alert("Geocode was not successful for the following reason: " + status);
-      	}
-      }
-    </script>
-	</head> 
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbunV-3zdGsFn7N_b2zOwIZLLwzCYQ-j8&sensor=false">
+	</script>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/test.css" media="screen" />
+	<script type="text/javascript" src="/lib/jquery-1.9.0.min.js"></script>
+	<script type="text/javascript" src="/scripts/single_entry.js"> </script>
 
-<body onload ="initialize()">
+	<script type="text/javascript">
+	function initialize() {
+		var geocoder = new google.maps.Geocoder();
+		var address = "{{entry.location}}";
+		geocoder.geocode( { 'address': address }, function(results, status) {
+			if (status == google.maps.GeocoderStatus.OK) {
+				var latlng = new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng())
+				var mapOptions = {
+					center: latlng,
+					zoom: 14,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				};
+				var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+				var marker = new google.maps.Marker({
+					position: latlng,
+					map: map,
+					title:"{{entry.title}}",
+					animation: google.maps.Animation.DROP
+				});
+			} else {
+				alert("Geocode was not successful for the following reason: " + status);
+			}
+		});
+	}
+	</script>
+</head> 
 
-	<h1> <a href="/todo"> Our List of Things to do Together :) </a> </h1>
-	<div class="content">
-  		<div class="entry">
-			<div class="entry-header">
-				<a id="blah" class="entry-title" href="/todo/{{entry.id}}">{{entry.title}}
-				</a>
-				<div class="entry-location">in {{entry.location}}</div>
-			</div>
-	</div> </div> </div>
-			<div id="map_canvas" style="width:30%; height:30%"></div>
-		<div class="content">
-  		<div class="entry">
-			<div class="entry-header">		
-  			<pre class="entry-description">{{entry.description}}</pre>
+<body onload=initialize()>
+
+<h1>  <a href="/todo">  Our List  of Things  to do  Together :)  </a> </h1>  
+<div class="content">  
+	<div class="entry">  
+		<div class="entry-header">     <a     id="blah"     class="entry-title"    href="/todo/{{entry.id}}">{{entry.title}}     </a>     
+			<div class="entry-location">in {{entry.location}}
+			</div> 
+		</div> 
+	</div> 
+</div>
+<div id="map_canvas" style="width:50%; height:50%"></div>
+<div class="content"> <div class="entry"> <div class="entry-header">
+	<pre class="entry-description">{{entry.description}}</pre>
   
-  			<div class="entry-footer">
-				<span class="entry-done" id="is-not-done" style="display:inline-block">
-  					<span id="todo" style="color:red">
-  						TO DO!!
-  					</span>
-  					<span id="done-question" style="display:none; color:red">
-  						DONE??
-  					</span>
-  				</span>
-  				<div class="entry-select-date-done" id="select-date-done" style="display:none"> 
-					<span> YES! on 
-						<form action="/todo/{{id}}" method="post" style="display:inline">
-							<input name="date" type="text">
-							<input type="submit" value="Go!" class="button-fancy" 
-							style="margin-top: 0; text-shadow:0 0 0; font-family:courier new; font-size: 18px">
-						</form>
-					</span>
-				</div>
-			</div>  
-			<span class="entry-done" style="display:none" id="is-done">
-				<span id="done" style="display:inline-block">
-					DONE!!
-				</span>
-				<span id="date-done" style="display:none; font-stretch:ultra-condensed"> 
-					on {{entry.accomplished_on}}
-   				</span>
-  			</span> 
-  			<div class="entry-author">
-  				Posted by {{entry.author}} on {{entry.created_on.strftime("%d %b %Y")}}
-  			</div>
-  		</div>
-  	</div>
+	<div class="entry-footer">
+		<span class="entry-done" id="is-not-done" style="display:inline-block">
+			<span id="todo" style="color:red">
+				TO DO!!
+			</span>
+			<span id="done-question" style="display:none; color:red">
+				DONE??
+			</span>
+		</span>
+		<div class="entry-select-date-done" id="select-date-done" style="display:none"> 
+			<span> YES! on 
+				<form action="/todo/{{id}}" method="post" style="display:inline">
+					<input name="date" type="text">
+					<input type="submit" value="Go!" class="button-fancy" 
+					style="margin-top: 0; text-shadow:0 0 0; font-family:courier new; font-size: 18px">
+				</form>
+			</span>
+		</div>
+	</div>  
+	<span class="entry-done" style="display:none" id="is-done">
+		<span id="done" style="display:inline-block">
+			DONE!!
+		</span>
+		<span id="date-done" style="display:none; font-stretch:ultra-condensed"> 
+			on {{entry.accomplished_on}}
+		</span>
+	</span> 
+	<div class="entry-author">
+		Posted by {{entry.author}} on {{entry.created_on.strftime("%d %b %Y")}}
+	</div>
+</div>
+</div>
 </div>
 
 <script>
 isDone('{{entry.is_accomplished}}');
 
 $("#todo").mouseover(function() {
-	$(this).fadeOut(100, function() {
-		$("#done-question").fadeIn(100);
-		});
-		});
+$(this).fadeOut(100, function() {
+	$("#done-question").fadeIn(100);
+});
+});
 
 $("#done-question").click(function() {
-	$("#select-date-done").css("display","inline-block");
-	});
+$("#select-date-done").css("display","inline-block");
+});
 
 $("#select-date-done").mouseleave(function() {
-	$("#todo").fadeIn(400);
-	$(this).css("display","none");
-	$("#done-question").css("display","none");
+$("#todo").fadeIn(400);
+$(this).css("display","none");
+$("#done-question").css("display","none");
 
-	});
+});
 		
 $("#done").mouseover(function() {
-	$("#date-done").fadeTo(300, 1);
-	});
+$("#date-done").fadeTo(300, 1);
+});
 $("#done").mouseleave(function() {
-	$("#date-done").fadeTo(100, 0);
-	});
+$("#date-done").fadeTo(100, 0);
+});
 </script>
 
 </body> 
